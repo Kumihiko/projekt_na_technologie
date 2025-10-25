@@ -4,8 +4,8 @@ This project is a client-side application built with Angular for the [Rick and M
 
 The application allows users to browse characters, episodes, and locations from the show, filter them, and (for registered users) save their favorites.
 
-![Rick and Morty App Screenshot](https://rickandmortyapi.com/api/character/avatar/1.jpeg) 
-*(You can replace this with a real screenshot of your app)*
+<img width="1890" height="912" alt="image" src="https://github.com/user-attachments/assets/7c0a8eea-7708-4a9d-a0bd-ef10f09099d3" />
+*
 
 ---
 
