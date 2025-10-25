@@ -49,8 +49,11 @@ To run this project locally, follow these steps:
 
 git clone [https://github.com/Kumihiko/projekt_na_technologie.git](https://github.com/Kumihiko/projekt_na_technologie.git)
 cd projekt_na_technologie
+
 npm install
+
 ng serve --open
+
 ### Prerequisites
 
 You must have [Node.js](https://nodejs.org/) (which includes `npm`) and the [Angular CLI](https://angular.io/cli) installed on your machine.
