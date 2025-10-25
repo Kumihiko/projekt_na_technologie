@@ -1,19 +1,54 @@
-<header class="main-header">
-  <nav class="main-nav">
-    <h1>Rick and Morty API Client</h1>
-    <ul>
-      <li>
-        <a routerLink="/characters" routerLinkActive="active-link">Characters</a>
-      </li>
-      <li>
-        <a routerLink="/episodes" routerLinkActive="active-link">Episodes</a>
-      </li>
-      <li>
-        <a routerLink="/locations" routerLinkActive="active-link">Locations</a>
-      </li>
-    </ul>
-  </nav>
-</header>
+<ng-container *ngIf="currentUserEmail$ | async as userEmail; else loggedOutNav">
+  
+  <header class="main-header">
+    <nav class="main-nav">
+      <h1>Rick and Morty API Client</h1>
+      <ul>
+        <li>
+          <a routerLink="/characters" routerLinkActive="active-link">Characters</a>
+        </li>
+        <li>
+          <a routerLink="/episodes" routerLinkActive="active-link">Episodes</a>
+        </li>
+        <li>
+          <a routerLink="/locations" routerLinkActive="active-link">Locations</a>
+        </li>
+        <li>
+          <a routerLink="/favorites" routerLinkActive="active-link">Favorites</a>
+        </li>
+        <li class="user-info">
+          <span>{{ userEmail }}</span>
+          <button (click)="logout()" class="btn-logout">Logout</button>
+        </li>
+      </ul>
+    </nav>
+  </header>
+</ng-container>
+
+<ng-template #loggedOutNav>
+
+  <header class="main-header">
+    <nav class="main-nav">
+      <h1>Rick and Morty App project</h1>
+      <ul>
+        <li>
+          <a routerLink="/characters" routerLinkActive="active-link">Characters</a>
+        </li>
+        <li>
+          <a routerLink="/episodes" routerLinkActive="active-link">Episodes</a>
+        </li>
+        <li>
+          <a routerLink="/locations" routerLinkActive="active-link">Locations</a>
+        </li>
+        <li class="auth-links">
+          <a routerLink="/login" routerLinkActive="active-link">Login</a>
+          <a routerLink="/register" routerLinkActive="active-link" class="btn-register">Register</a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+</ng-template>
+
 
 <main class="content">
   <router-outlet></router-outlet>

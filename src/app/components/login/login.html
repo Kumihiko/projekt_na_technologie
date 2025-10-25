@@ -1,0 +1,48 @@
+<div class="auth-container">
+  <div class="auth-form-card">
+    <h2>Log In</h2>
+    <p class="subtitle">Enter your credentials to access your favorites.</p>
+    
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input 
+          id="email" 
+          type="email" 
+          formControlName="email"
+          placeholder="e.g., rick@c137.com"
+          [class.invalid-field]="f['email'].invalid && f['email'].touched">
+        
+        <div *ngIf="f['email'].invalid && f['email'].touched" class="validation-error">
+          <span *ngIf="f['email'].errors?.['required']">Email is required.</span> <span *ngIf="f['email'].errors?.['email']">Must be a valid email address.</span> </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input 
+          id="password" 
+          type="password" 
+          formControlName="password"
+          placeholder="Your password"
+          [class.invalid-field]="f['password'].invalid && f['password'].touched">
+
+        <div *ngIf="f['password'].invalid && f['password'].touched" class="validation-error">
+          <span *ngIf="f['password'].errors?.['required']">Password is required.</span> </div>
+      </div>
+
+      <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </div>
+
+      <button type="submit" [disabled]="loginForm.invalid" class="btn-primary">
+        Log In
+      </button>
+
+    </form>
+
+    <div class="auth-switch">
+      <p>Don't have an account? <a routerLink="/register">Register here</a></p>
+    </div>
+  </div>
+</div>

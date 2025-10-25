@@ -1,0 +1,177 @@
+/* src/app/components/register/register.css */
+/* This is 99% a copy of login.css for consistency */
+
+/* === REUSABLE THEME STYLES (Filters, Buttons, Pagination) === */
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+select {
+  padding: 0.6rem 0.8rem;
+  border: 2px solid #dee2e6; 
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  background-color: #ffffff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  width: 100%;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+select:focus {
+  border-color: #97ce4c; /* Green focus */
+  box-shadow: 0 0 0 3px rgba(151, 206, 76, 0.25); /* Green glow */
+  outline: none;
+}
+
+button {
+  padding: 0.6rem 1.25rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: 700; 
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+  width: 100%;
+}
+
+button.btn-primary {
+  background-color: #97ce4c; /* R&M Green */
+  color: #0c2c4c; /* Dark Blue text */
+}
+button.btn-primary:hover:not(:disabled) {
+  background-color: #aff55f; /* Lighter green */
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+button:disabled {
+  background-color: #e9ecef;
+  color: #6c757d;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* General Error Message (for login failure) */
+.error-message {
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: 6px;
+  color: #d9534f; 
+  background-color: #f2dede;
+  border: 1px solid #ebccd1;
+  margin-bottom: 1rem;
+}
+
+/* NEW: Success Message */
+.success-message {
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: 6px;
+  color: #155724; /* Dark green */
+  background-color: #d4edda; /* Light green */
+  border: 1px solid #c3e6cb;
+  margin-bottom: 1rem;
+}
+
+/* === END OF REUSABLE STYLES === */
+
+
+/* === NEW, UNIQUE STYLES for Auth Form === */
+
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Aligns to top */
+  padding-top: 2rem;
+  width: 100%;
+}
+
+.auth-form-card {
+  width: 100%;
+  max-width: 450px; /* Constrain the width */
+  background: #ffffff;
+  padding: 2rem 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e0e0e0;
+}
+
+.auth-form-card h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #0c2c4c;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.auth-form-card .subtitle {
+  text-align: center;
+  font-size: 1rem;
+  color: #6c757d;
+  margin-bottom: 2rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem; /* Space between form groups */
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #495057;
+  margin-bottom: 0.5rem;
+}
+
+/* Validation Error Text */
+.validation-error {
+  color: #d9534f;
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-top: 0.4rem;
+}
+
+/* Input field with error */
+.invalid-field {
+  border-color: #d9534f; /* Red border */
+}
+.invalid-field:focus {
+  border-color: #d9534f;
+  box-shadow: 0 0 0 3px rgba(217, 83, 79, 0.25); /* Red glow */
+}
+
+.auth-switch {
+  text-align: center;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid #eee;
+}
+
+.auth-switch p {
+  margin: 0;
+  color: #495057;
+}
+
+.auth-switch a {
+  color: #007bff; /* Blue link */
+  font-weight: 600;
+  text-decoration: none;
+}
+.auth-switch a:hover {
+  text-decoration: underline;
+}
