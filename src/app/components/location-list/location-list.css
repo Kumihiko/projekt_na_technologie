@@ -1,134 +1,177 @@
 /* src/app/components/location-list/location-list.css */
 
-/* --- Copied styles for filters, buttons, etc. --- */
-/* (We copy them so the component is self-contained) */
+/* === REUSABLE THEME STYLES (Filters, Buttons, Pagination) === */
 
+/* New styles for text inputs and selects */
 input[type="text"],
 select {
-  padding: 0.5rem 0.75rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 0.9rem;
+  padding: 0.6rem 0.8rem;
+  border: 2px solid #dee2e6; /* Thicker, more modern border */
+  border-radius: 6px;
+  font-size: 0.95rem;
   font-family: inherit;
+  background-color: #ffffff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
+/* Focus style with R&M green */
+input[type="text"]:focus,
+select:focus {
+  border-color: #97ce4c; /* Green focus */
+  box-shadow: 0 0 0 3px rgba(151, 206, 76, 0.25); /* Green glow */
+  outline: none;
+}
+
+/* Base button style */
 button {
-  padding: 0.5rem 1rem;
+  padding: 0.6rem 1.25rem;
   border: none;
-  border-radius: 4px;
-  font-weight: 600;
+  border-radius: 6px;
+  font-weight: 700; /* Bolder text */
+  font-size: 0.95rem;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: all 0.2s ease;
   font-family: inherit;
 }
 
+/* THEMED Primary Button (R&M Green) */
 button.btn-primary {
-  background-color: #007bff; /* Blue */
-  color: white;
+  background-color: #97ce4c; /* R&M Green */
+  color: #0c2c4c; /* Dark Blue text */
 }
 button.btn-primary:hover {
-  background-color: #0056b3;
+  background-color: #aff55f; /* Lighter green */
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
+/* THEMED Secondary Button (R&M Yellow) */
 button.btn-secondary {
-  background-color: #6c757d; /* Gray */
-  color: white;
+  background-color: #f0e14a; /* R&M Yellow */
+  color: #0c2c4c; /* Dark Blue text */
 }
 button.btn-secondary:hover {
-  background-color: #5a6268;
+  background-color: #f9eb8b; /* Lighter yellow */
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
+/* Disabled button style */
 button:disabled {
   background-color: #e9ecef;
   color: #6c757d;
   cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
+/* Polished Filter Panel */
 .filters-panel {
   display: flex;
   gap: 0.75rem;
-  margin-bottom: 1.5rem;
-  padding: 1rem;
+  margin-bottom: 2rem; /* More space */
+  padding: 1.25rem; /* More padding */
   background-color: #ffffff;
-  border: 1px solid #dee2e6;
-  border-radius: 8px;
+  border-radius: 12px; /* Softer radius */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* Softer shadow */
   flex-wrap: wrap;
 }
 
+/* Loading and Error states */
 .loading,
 .error-message {
   text-align: center;
-  padding: 2rem;
+  padding: 3rem; /* More padding */
   font-size: 1.2rem;
   font-weight: 500;
+  border-radius: 12px;
 }
 .error-message {
-  color: #d9534f;
+  color: #d9534f; 
   background-color: #f2dede;
   border: 1px solid #ebccd1;
-  border-radius: 4px;
 }
 
+/* Polished Pagination */
 .pagination {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 1rem;
-  margin-top: 2rem;
+  margin-top: 2.5rem; /* More space */
 }
 
 .pagination span {
   font-weight: 500;
+  font-size: 1.1rem;
 }
+.pagination button {
+  /* Use the secondary button style for pagination */
+  background-color: #f0e14a; 
+  color: #0c2c4c; 
+}
+.pagination button:not(:disabled):hover {
+  background-color: #f9eb8b;
+  transform: translateY(-2px);
+}
+/* === END OF REUSABLE STYLES === */
 
-/* --- NEW, UNIQUE STYLES for Location List --- */
+
+/* === POLISHED Location List Styles === */
 
 .location-list {
-  display: flex;
-  flex-direction: column; /* Stack items vertically */
-  gap: 1rem;
+  /* This time, let's use a grid, not a list */
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
 }
 
 .location-item {
   background: #ffffff;
-  border-radius: 6px;
+  border-radius: 8px;
   padding: 1.25rem 1.5rem;
-  border: 1px solid #dee2e6;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-  /* Use a top border accent, different color */
-  border-top: 4px solid #f0e14a; /* Yellow from nav hover */
-  transition: border-color 0.2s ease;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  border-top: 5px solid #f0e14a; /* Yellow from nav hover */
+  transition: all 0.2s ease;
 }
 
 .location-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   border-top-color: #0c2c4c; /* Dark blue on hover */
 }
 
 .location-item h3 {
-  margin: 0 0 0.75rem 0;
-  font-size: 1.2rem;
+  margin: 0 0 1rem 0; /* More space below heading */
+  font-size: 1.3rem;
+  font-weight: 700;
   color: #212529;
 }
 
 .location-item .details {
   display: flex;
   gap: 0.5rem;
-  flex-wrap: wrap; /* Allow tags to wrap on small screens */
+  flex-wrap: wrap; 
 }
 
+/* Polished Tags */
 .location-item .detail-tag {
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   font-weight: 600;
-  padding: 0.25rem 0.75rem;
+  padding: 0.35rem 0.8rem;
   border-radius: 20px; /* "Pill" shape */
   color: #fff;
   letter-spacing: 0.5px;
+  text-transform: uppercase;
 }
 
 .location-item .detail-tag.type {
-  background-color: #007bff; /* Blue */
+  background-color: #17a2b8; /* Info Blue */
+  color: #fff;
 }
 
 .location-item .detail-tag.dimension {
   background-color: #28a745; /* A different green */
+  color: #fff;
 }

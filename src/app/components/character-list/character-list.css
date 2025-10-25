@@ -1,147 +1,193 @@
 /* src/app/components/character-list/character-list.css */
 
-/* General styles for buttons and inputs in this component */
+/* === REUSABLE THEME STYLES (Filters, Buttons, Pagination) === */
+
+/* New styles for text inputs and selects */
 input[type="text"],
 select {
-  padding: 0.5rem 0.75rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 0.9rem;
-  font-family: inherit; /* Inherit font from global styles */
+  padding: 0.6rem 0.8rem;
+  border: 2px solid #dee2e6; /* Thicker, more modern border */
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  background-color: #ffffff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
+/* Focus style with R&M green */
+input[type="text"]:focus,
+select:focus {
+  border-color: #97ce4c; /* Green focus */
+  box-shadow: 0 0 0 3px rgba(151, 206, 76, 0.25); /* Green glow */
+  outline: none;
+}
+
+/* Base button style */
 button {
-  padding: 0.5rem 1rem;
+  padding: 0.6rem 1.25rem;
   border: none;
-  border-radius: 4px;
-  font-weight: 600;
+  border-radius: 6px;
+  font-weight: 700; /* Bolder text */
+  font-size: 0.95rem;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: all 0.2s ease;
   font-family: inherit;
 }
 
+/* THEMED Primary Button (R&M Green) */
 button.btn-primary {
-  background-color: #007bff; /* Blue */
-  color: white;
+  background-color: #97ce4c; /* R&M Green */
+  color: #0c2c4c; /* Dark Blue text */
 }
 button.btn-primary:hover {
-  background-color: #0056b3;
+  background-color: #aff55f; /* Lighter green */
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
+/* THEMED Secondary Button (R&M Yellow) */
 button.btn-secondary {
-  background-color: #6c757d; /* Gray */
-  color: white;
+  background-color: #f0e14a; /* R&M Yellow */
+  color: #0c2c4c; /* Dark Blue text */
 }
 button.btn-secondary:hover {
-  background-color: #5a6268;
+  background-color: #f9eb8b; /* Lighter yellow */
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
+/* Disabled button style */
 button:disabled {
   background-color: #e9ecef;
   color: #6c757d;
   cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
-/* Filter panel */
+/* Polished Filter Panel */
 .filters-panel {
   display: flex;
-  gap: 0.75rem; /* Space between filter elements */
-  margin-bottom: 1.5rem;
-  padding: 1rem;
-  background-color: #ffffff; /* White background */
-  border: 1px solid #dee2e6;
-  border-radius: 8px;
-  flex-wrap: wrap; /* Allows filters to wrap on small screens */
+  gap: 0.75rem;
+  margin-bottom: 2rem; /* More space */
+  padding: 1.25rem; /* More padding */
+  background-color: #ffffff;
+  border-radius: 12px; /* Softer radius */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* Softer shadow */
+  flex-wrap: wrap;
 }
 
 /* Loading and Error states */
 .loading,
 .error-message {
   text-align: center;
-  padding: 2rem;
+  padding: 3rem; /* More padding */
   font-size: 1.2rem;
   font-weight: 500;
+  border-radius: 12px;
 }
 .error-message {
-  color: #d9534f; /* Red for errors */
+  color: #d9534f; 
   background-color: #f2dede;
   border: 1px solid #ebccd1;
-  border-radius: 4px;
 }
 
-/* Grid layout for cards */
-.grid {
-  display: grid;
-  /* Creates responsive columns: they fill the space, 
-     but are at least 280px wide */
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.5rem;
-}
-
-/* Character card styles */
-.card {
-  background: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  overflow: hidden; /* To keep the image corners rounded */
-  display: flex;
-  flex-direction: column;
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-.card:hover {
-  transform: translateY(-5px); /* Lifts the card on hover */
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-}
-
-.card img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
-.card-content {
-  padding: 1rem;
-}
-
-.card-content h3 {
-  margin: 0 0 0.5rem 0;
-  font-size: 1.25rem;
-  color: #212529; /* Darker text */
-}
-
-.card-content p {
-  margin: 0.25rem 0;
-  font-size: 0.9rem;
-  color: #495057; /* Medium-dark text */
-}
-
-.card-label {
-  font-weight: 600;
-  color: #6c757d; /* Gray text */
-  margin-top: 0.75rem !important; /* !important to override other p styles */
-}
-
-/* Status indicator dot */
-.status-icon {
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  margin-right: 5px;
-}
-.status-icon.alive { background-color: #55cc44; } /* Green */
-.status-icon.dead { background-color: #d63d2e; } /* Red */
-.status-icon.unknown { background-color: #9e9e9e; } /* Gray */
-
-/* Pagination controls */
+/* Polished Pagination */
 .pagination {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 1rem;
-  margin-top: 2rem;
+  margin-top: 2.5rem; /* More space */
 }
 
 .pagination span {
   font-weight: 500;
+  font-size: 1.1rem;
 }
+.pagination button {
+  /* Use the secondary button style for pagination */
+  background-color: #f0e14a; 
+  color: #0c2c4c; 
+}
+.pagination button:not(:disabled):hover {
+  background-color: #f9eb8b;
+  transform: translateY(-2px);
+}
+/* === END OF REUSABLE STYLES === */
+
+
+/* === POLISHED Card Styles === */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.75rem; /* Slightly more gap */
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 12px; /* Softer radius */
+  /* Softer, more modern shadow */
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.card:hover {
+  transform: translateY(-8px); /* Lift up more */
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.card img {
+  width: 100%;
+  height: 280px; /* Fixed height for uniform grid */
+  object-fit: cover; /* This prevents stretching */
+  display: block;
+}
+
+.card-content {
+  padding: 1.25rem; /* More padding */
+  flex-grow: 1; /* Ensures content fills the card */
+  display: flex;
+  flex-direction: column;
+}
+
+.card-content h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.4rem; /* Larger name */
+  font-weight: 700;
+  color: #0c2c4c;
+}
+
+.card-content p {
+  margin: 0.25rem 0;
+  font-size: 1rem; /* Larger status text */
+  color: #495057;
+  line-height: 1.5;
+}
+
+/* Polished Label */
+.card-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #6c757d;
+  margin-top: 1rem !important;
+  text-transform: uppercase; /* ALL CAPS */
+  letter-spacing: 0.5px;
+}
+
+/* Polished Status Dot */
+.status-icon {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 6px;
+  /* Add a subtle border to the dot */
+  border: 1px solid rgba(0,0,0,0.1);
+}
+.status-icon.alive { background-color: #55cc44; }
+.status-icon.dead { background-color: #d63d2e; }
+.status-icon.unknown { background-color: #9e9e9e; }
