@@ -48,6 +48,7 @@ The application allows users to browse characters, episodes, and locations from 
 To run this project locally, follow these steps:
 
 git clone [https://github.com/Kumihiko/projekt_na_technologie.git](https://github.com/Kumihiko/projekt_na_technologie.git)
+
 cd projekt_na_technologie
 
 npm install
