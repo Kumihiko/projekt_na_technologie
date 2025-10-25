@@ -1,1 +1,44 @@
-<p>episode-list works!</p>
+<div class="list-container">
+  <h2>Episodes</h2>
+
+  <div class="filters-panel">
+    <input 
+      type="text" 
+      placeholder="Filter by name..." 
+      [(ngModel)]="filterName"
+      (keyup.enter)="applyFilters()">
+
+    <button class="btn-primary" (click)="applyFilters()">Apply Filters</button>
+    <button class="btn-secondary" (click)="clearFilters()">Clear</button>
+  </div>
+
+  <div *ngIf="isLoading" class="loading">
+    Loading episodes...
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
+
+  <div *ngIf="!isLoading && !error && episodes.length > 0" class="episode-list">
+    
+    <div *ngFor="let epi of episodes" class="list-item">
+      <div>
+        <h3>{{ epi.name }}</h3>
+        <p class="episode-code">{{ epi.episode }}</p> </div>
+      <p class="air-date">Air Date: {{ epi.air_date }}</p>
+    </div>
+
+  </div>
+
+  <div *ngIf="info && !isLoading" class="pagination">
+    <button (click)="goToPrevPage()" [disabled]="!info?.prev">
+      &laquo; Previous
+    </button>
+    <span>Page {{ currentPage }} of {{ info?.pages }}</span>
+    <button (click)="goToNextPage()" [disabled]="!info?.next">
+      Next &raquo;
+    </button>
+  </div>
+
+</div>

@@ -1,1 +1,52 @@
-<p>character-list works!</p>
+<div class="list-container">
+  <h2>Characters</h2>
+
+  <div class="filters-panel">
+    <input 
+      type="text" 
+      placeholder="Filter by name..." 
+      [(ngModel)]="filterName"
+      (keyup.enter)="applyFilters()"> <select [(ngModel)]="filterStatus">
+      <option value="">All Statuses</option>
+      <option value="alive">Alive</option>
+      <option value="dead">Dead</option>
+      <option value="unknown">Unknown</option>
+    </select>
+
+    <button class="btn-primary" (click)="applyFilters()">Apply Filters</button>
+    <button class="btn-secondary" (click)="clearFilters()">Clear</button>
+  </div>
+
+  <div *ngIf="isLoading" class="loading">
+    Loading characters...
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
+
+  <div *ngIf="!isLoading && !error && characters.length > 0" class="grid">
+    
+    <div *ngFor="let char of characters" class="card">
+      <img [src]="char.image" [alt]="char.name"> <div class="card-content">
+        <h3>{{ char.name }}</h3>
+        <p>
+          <span class="status-icon" [ngClass]="char.status.toLowerCase()"></span>
+          {{ char.status }} - {{ char.species }}
+        </p>
+        <p class="card-label">Last known location:</p>
+        <p>{{ char.location.name }}</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div *ngIf="info && !isLoading" class="pagination">
+    <button (click)="goToPrevPage()" [disabled]="!info?.prev"> &laquo; Previous
+    </button>
+    <span>Page {{ currentPage }} of {{ info?.pages }}</span>
+    <button (click)="goToNextPage()" [disabled]="!info?.next"> Next &raquo;
+    </button>
+  </div>
+
+</div>

@@ -1,0 +1,129 @@
+/* src/app/components/episode-list/episode-list.css */
+
+/* --- Copied styles for filters, buttons, etc. --- */
+/* (We copy them so the component is self-contained) */
+
+input[type="text"],
+select {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  font-family: inherit;
+}
+
+button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-family: inherit;
+}
+
+button.btn-primary {
+  background-color: #007bff; /* Blue */
+  color: white;
+}
+button.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+button.btn-secondary {
+  background-color: #6c757d; /* Gray */
+  color: white;
+}
+button.btn-secondary:hover {
+  background-color: #5a6268;
+}
+
+button:disabled {
+  background-color: #e9ecef;
+  color: #6c757d;
+  cursor: not-allowed;
+}
+
+.filters-panel {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background-color: #ffffff;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  flex-wrap: wrap;
+}
+
+.loading,
+.error-message {
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+.error-message {
+  color: #d9534f;
+  background-color: #f2dede;
+  border: 1px solid #ebccd1;
+  border-radius: 4px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.pagination span {
+  font-weight: 500;
+}
+
+/* --- NEW, UNIQUE STYLES for Episode List --- */
+
+.episode-list {
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  gap: 1rem;
+}
+
+.list-item {
+  display: flex;
+  justify-content: space-between; /* Pushes title/code to the left, date to the right */
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid #dee2e6;
+  border-left: 5px solid #97ce4c; /* Green accent border */
+  border-radius: 6px;
+  padding: 1rem 1.5rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  transition: box-shadow 0.2s ease;
+}
+
+.list-item:hover {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.list-item h3 {
+  margin: 0 0 0.25rem 0;
+  color: #0c2c4c; /* Dark blue from header */
+  font-size: 1.15rem;
+}
+
+.list-item .episode-code {
+  font-weight: 600;
+  color: #007bff; /* Blue */
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.list-item .air-date {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #495057;
+  margin: 0;
+  white-space: nowrap; /* Prevents date from wrapping */
+  padding-left: 1rem;
+}
