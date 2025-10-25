@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-episode-list',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule, FormsModule],
   templateUrl: './episode-list.html',
-  styleUrl: './episode-list.css',
+  styleUrl: './episode-list.css'
 })
-export class EpisodeList {
+export class EpisodeListComponent { // <-- ZMIEŃ NAZWĘ KLASY
 
 }

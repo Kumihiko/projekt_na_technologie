@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-location-list',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule, FormsModule],
   templateUrl: './location-list.html',
-  styleUrl: './location-list.css',
+  styleUrl: './location-list.css'
 })
-export class LocationList {
+export class LocationListComponent { // <-- ZMIEŃ NAZWĘ KLASY
 
 }
