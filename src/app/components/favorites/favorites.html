@@ -1,1 +1,68 @@
-<p>favorites works!</p>
+<div class="list-container">
+  <h2>My Favorites</h2>
+
+  <div *ngIf="isLoading" class="loading">
+    Loading favorites...
+  </div>
+
+  <div *ngIf="hasNoFavorites" class="empty-state">
+    <h3>You have no favorites yet!</h3>
+    <p>Go to the lists and click the star icon (&#9733;) to add some.</p>
+    <a routerLink="/characters" class="btn-primary">Browse Characters</a>
+  </div>
+
+  <div *ngIf="!isLoading && favCharacters.length > 0" class="favorites-section">
+    <h3>Favorite Characters</h3>
+    <div class="grid">
+      <div *ngFor="let char of favCharacters" class="card">
+        <button (click)="removeFavorite(char, 'characters')" class="remove-btn" title="Remove favorite">
+          &times; </button>
+        <img [src]="char.image" [alt]="char.name">
+        <div class="card-content">
+          <h3>{{ char.name }}</h3>
+          <p>
+            <span class="status-icon" [ngClass]="char.status.toLowerCase()"></span>
+            {{ char.status }} - {{ char.species }}
+          </p>
+          <p class="card-label">Last known location:</p>
+          <p>{{ char.location.name }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!isLoading && favEpisodes.length > 0" class="favorites-section">
+    <h3>Favorite Episodes</h3>
+    <div class="episode-list">
+      <div *ngFor="let epi of favEpisodes" class="list-item">
+        <div class="list-item-content">
+          <h3>{{ epi.name }}</h3>
+          <p class="episode-code">{{ epi.episode }}</p>
+        </div>
+        <p class="air-date">Air Date: {{ epi.air_date }}</p>
+        <button (click)="removeFavorite(epi, 'episodes')" class="remove-btn" title="Remove favorite">
+          &times;
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!isLoading && favLocations.length > 0" class="favorites-section">
+    <h3>Favorite Locations</h3>
+    <div class="location-list">
+      <div *ngFor="let loc of favLocations" class="location-item">
+        <div class="location-item-header">
+          <h3>{{ loc.name }}</h3>
+          <button (click)="removeFavorite(loc, 'locations')" class="remove-btn" title="Remove favorite">
+            &times;
+          </button>
+        </div>
+        <div class="details">
+          <span class="detail-tag type">{{ loc.type }}</span>
+          <span class="detail-tag dimension">{{ loc.dimension }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

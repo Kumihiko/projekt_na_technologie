@@ -7,13 +7,16 @@
       placeholder="Filter by name..." 
       [(ngModel)]="filterName"
       (keyup.enter)="applyFilters()">
-    
     <input 
       type="text" 
       placeholder="Filter by type..." 
       [(ngModel)]="filterType"
       (keyup.enter)="applyFilters()">
-
+    <input 
+      type="text" 
+      placeholder="Filter by dimension..." 
+      [(ngModel)]="filterDimension"
+      (keyup.enter)="applyFilters()">
     <button class="btn-primary" (click)="applyFilters()">Apply Filters</button>
     <button class="btn-secondary" (click)="clearFilters()">Clear</button>
   </div>
@@ -21,7 +24,6 @@
   <div *ngIf="isLoading" class="loading">
     Loading locations...
   </div>
-
   <div *ngIf="error" class="error-message">
     {{ error }}
   </div>
@@ -29,7 +31,18 @@
   <div *ngIf="!isLoading && !error && locations.length > 0" class="location-list">
     
     <div *ngFor="let loc of locations" class="location-item">
-      <h3>{{ loc.name }}</h3>
+      <div class="location-item-header">
+        <h3>{{ loc.name }}</h3>
+        <button 
+          *ngIf="isLoggedIn" 
+          class="favorite-btn"
+          (click)="toggleFavorite(loc); $event.stopPropagation();"
+          [class.is-favorite]="isFavorite(loc.id)"
+          title="Add to favorites">
+          &#9733;
+        </button>
+      </div>
+
       <div class="details">
         <span class="detail-tag type">{{ loc.type }}</span>
         <span class="detail-tag dimension">{{ loc.dimension }}</span>
@@ -39,13 +52,12 @@
   </div>
 
   <div *ngIf="info && !isLoading" class="pagination">
-    <button (click)="goToPrevPage()" [disabled]="!info?.prev">
+    <button (click)="goToPrevPage()" [disabled]="!info.prev">
       &laquo; Previous
     </button>
-    <span>Page {{ currentPage }} of {{ info?.pages }}</span>
-    <button (click)="goToNextPage()" [disabled]="!info?.next">
+    <span>Page {{ currentPage }} of {{ info.pages }}</span>
+    <button (click)="goToNextPage()" [disabled]="!info.next">
       Next &raquo;
     </button>
   </div>
-
 </div>

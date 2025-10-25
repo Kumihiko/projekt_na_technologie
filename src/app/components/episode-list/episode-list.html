@@ -7,7 +7,11 @@
       placeholder="Filter by name..." 
       [(ngModel)]="filterName"
       (keyup.enter)="applyFilters()">
-
+    <input 
+      type="text" 
+      placeholder="Filter by code (e.g., S01E01)..." 
+      [(ngModel)]="filterEpisode"
+      (keyup.enter)="applyFilters()">
     <button class="btn-primary" (click)="applyFilters()">Apply Filters</button>
     <button class="btn-secondary" (click)="clearFilters()">Clear</button>
   </div>
@@ -15,7 +19,6 @@
   <div *ngIf="isLoading" class="loading">
     Loading episodes...
   </div>
-
   <div *ngIf="error" class="error-message">
     {{ error }}
   </div>
@@ -23,22 +26,32 @@
   <div *ngIf="!isLoading && !error && episodes.length > 0" class="episode-list">
     
     <div *ngFor="let epi of episodes" class="list-item">
-      <div>
-        <h3>{{ epi.name }}</h3>
-        <p class="episode-code">{{ epi.episode }}</p> </div>
+      <div class="list-item-content">
+        <div class="list-item-header">
+          <h3>{{ epi.name }}</h3>
+          <button 
+            *ngIf="isLoggedIn" 
+            class="favorite-btn"
+            (click)="toggleFavorite(epi); $event.stopPropagation();"
+            [class.is-favorite]="isFavorite(epi.id)"
+            title="Add to favorites">
+            &#9733;
+          </button>
+        </div>
+        <p class="episode-code">{{ epi.episode }}</p>
+      </div>
       <p class="air-date">Air Date: {{ epi.air_date }}</p>
     </div>
 
   </div>
 
   <div *ngIf="info && !isLoading" class="pagination">
-    <button (click)="goToPrevPage()" [disabled]="!info?.prev">
+    <button (click)="goToPrevPage()" [disabled]="!info.prev">
       &laquo; Previous
     </button>
-    <span>Page {{ currentPage }} of {{ info?.pages }}</span>
-    <button (click)="goToNextPage()" [disabled]="!info?.next">
+    <span>Page {{ currentPage }} of {{ info.pages }}</span>
+    <button (click)="goToNextPage()" [disabled]="!info.next">
       Next &raquo;
     </button>
   </div>
-
 </div>

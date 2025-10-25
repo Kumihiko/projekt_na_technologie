@@ -1,5 +1,5 @@
 // src/app/services/api.ts
-
+import { map } from 'rxjs'; // <-- Zaktualizuj tę linię
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -56,5 +56,39 @@ export class ApiService {
     }
 
     return this.http.get<ApiResponse<Location>>(`${this.baseUrl}/location`, { params });
+  }
+  /**
+   * Gets a list of characters by their IDs.
+   * @param ids - An array of character IDs.
+   */
+  getCharactersByIds(ids: number[]): Observable<Character[]> {
+    // API returns a single object if only one ID is passed,
+    // but an array if multiple IDs are passed. We handle both.
+    return this.http.get<Character[] | Character>(`${this.baseUrl}/character/${ids.join(',')}`)
+      .pipe(
+        map(response => Array.isArray(response) ? response : [response])
+      );
+  }
+
+  /**
+   * Gets a list of episodes by their IDs.
+   * @param ids - An array of episode IDs.
+   */
+  getEpisodesByIds(ids: number[]): Observable<Episode[]> {
+    return this.http.get<Episode[] | Episode>(`${this.baseUrl}/episode/${ids.join(',')}`)
+      .pipe(
+        map(response => Array.isArray(response) ? response : [response])
+      );
+  }
+
+  /**
+   * Gets a list of locations by their IDs.
+   * @param ids - An array of location IDs.
+   */
+  getLocationsByIds(ids: number[]): Observable<Location[]> {
+    return this.http.get<Location[] | Location>(`${this.baseUrl}/location/${ids.join(',')}`)
+      .pipe(
+        map(response => Array.isArray(response) ? response : [response])
+      );
   }
 }

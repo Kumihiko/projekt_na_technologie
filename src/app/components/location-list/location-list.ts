@@ -1,96 +1,133 @@
 // src/app/components/location-list/location-list.ts
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core'; // Add OnDestroy
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Subscription } from 'rxjs'; // Import Subscription
 
-// Import our service and models
+// Import services and models with correct paths
 import { ApiService } from '../../services/api';
-import { Location, Info } from '../../models/api.models'; // Changed to Location
+import { Location, Info } from '../../models/api.models';
+import { FavoritesService } from '../../services/favorites'; // Import FavoritesService
+import { AuthService } from '../../services/auth'; // Import AuthService
 
 @Component({
   selector: 'app-location-list',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  templateUrl: './location-list.html', // Poprawiona ścieżka bez .component
-  styleUrl: './location-list.css'    // Poprawiona ścieżka bez .component
+  templateUrl: './location-list.html',
+  styleUrl: './location-list.css'
 })
-export class LocationListComponent implements OnInit {
+export class LocationListComponent implements OnInit, OnDestroy { // Implement OnDestroy
 
-  // Data stores
-  public locations: Location[] = []; // Changed to 'locations'
+  public locations: Location[] = [];
   public info: Info | null = null;
-  
-  // State management
   public currentPage: number = 1;
   public isLoading: boolean = true;
   public error: string | null = null;
 
-  // Filters (Name and Type for locations)
+  // Filters
   public filterName: string = '';
-  public filterType: string = ''; // Added filter for 'type'
+  public filterType: string = '';
+  public filterDimension: string = '';
 
-  // Inject the ApiService
-  constructor(private api: ApiService) { }
+  // Auth & Favorites
+  public isLoggedIn: boolean = false;
+  private subscriptions = new Subscription(); // To manage subscriptions
+
+  constructor(
+    private api: ApiService,
+    private favorites: FavoritesService, // Inject FavoritesService
+    private auth: AuthService           // Inject AuthService
+  ) { }
 
   ngOnInit(): void {
-    this.loadLocations(); // Changed to 'loadLocations'
+    // Check login status
+    this.subscriptions.add(
+      this.auth.currentUser$.subscribe(user => {
+        this.isLoggedIn = !!user;
+      })
+    );
+
+    // Refresh list if favorites change
+    this.subscriptions.add(
+      this.favorites.favoritesChanged$.subscribe(() => {
+        // This subscription forces Angular to re-check the 'isFavorite' status
+      })
+    );
+    
+    this.loadLocations();
   }
 
-  loadLocations(): void { // Changed to 'loadLocations'
+  ngOnDestroy(): void {
+    // Prevent memory leaks
+    this.subscriptions.unsubscribe();
+  }
+
+  loadLocations(): void {
     this.isLoading = true;
     this.error = null;
 
-    // Prepare filters object (name and type)
     const filters = {
       name: this.filterName,
-      type: this.filterType // Added type
+      type: this.filterType,
+      dimension: this.filterDimension
     };
 
-    // Call the correct service method
     this.api.getLocations(this.currentPage, filters).subscribe({
       next: (response) => {
-        this.locations = response.results; // Changed to 'locations'
+        this.locations = response.results;
         this.info = response.info;
         this.isLoading = false;
       },
       error: (err: HttpErrorResponse) => {
         this.error = `Error: ${err.error.error || 'Something went wrong'}`;
-        this.locations = []; // Changed to 'locations'
+        this.locations = [];
         this.info = null;
         this.isLoading = false;
       }
     });
   }
 
-  // --- PAGINATION HANDLERS ---
+  // --- NEW FAVORITE METHODS ---
+
+  toggleFavorite(location: Location): void {
+    // Pass 'locations' as the type
+    this.favorites.toggleFavorite(location, 'locations');
+  }
+
+  isFavorite(locationId: number): boolean {
+    // Pass 'locations' as the type
+    return this.favorites.isFavorite(locationId, 'locations');
+  }
+  
+  // --- PAGINATION & FILTERS (Unchanged) ---
   
   goToNextPage(): void {
-    if (this.info?.next) {
+    if (this.info && this.info.next) {
       this.currentPage++;
-      this.loadLocations(); // Changed to 'loadLocations'
+      this.loadLocations();
     }
   }
 
   goToPrevPage(): void {
-    if (this.info?.prev) {
+    if (this.info && this.info.prev) {
       this.currentPage--;
-      this.loadLocations(); // Changed to 'loadLocations'
+      this.loadLocations();
     }
   }
 
-  // --- FILTER HANDLERS ---
-
   applyFilters(): void {
     this.currentPage = 1;
-    this.loadLocations(); // Changed to 'loadLocations'
+    this.loadLocations();
   }
 
   clearFilters(): void {
     this.filterName = '';
-    this.filterType = ''; // Clear type filter
+    this.filterType = '';
+    this.filterDimension = '';
     this.currentPage = 1;
-    this.loadLocations(); // Changed to 'loadLocations'
+    this.loadLocations();
   }
 }

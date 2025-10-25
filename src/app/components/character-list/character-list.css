@@ -191,3 +191,55 @@ button:disabled {
 .status-icon.alive { background-color: #55cc44; }
 .status-icon.dead { background-color: #d63d2e; }
 .status-icon.unknown { background-color: #9e9e9e; }
+
+.card-header {
+  display: flex;
+  justify-content: space-between; /* Pushes title left, star right */
+  align-items: flex-start; /* Aligns title and star to the top */
+  gap: 0.5rem;
+  margin-bottom: 0.5rem; /* Replaces the margin-bottom from h3 */
+}
+
+/* Musimy usunąć stary margines z h3, który jest teraz w .card-header */
+.card-content h3 {
+  margin-bottom: 0; 
+}
+
+/* The star button */
+.favorite-btn {
+  /* Reset button styles */
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  
+  /* Star styles */
+  font-size: 2rem; /* Big star */
+  line-height: 1;
+  color: #ccc; /* Default color: empty gray star */
+  
+  /* Animation */
+  transition: all 0.2s ease-in-out;
+  
+  /* Fix button width */
+  width: auto; 
+  min-width: 30px;
+}
+
+.favorite-btn:hover {
+  color: #f0e14a; /* Yellow hover */
+  transform: scale(1.2); /* Pop effect */
+  background: none; /* Override reusable button styles */
+  box-shadow: none; /* Override reusable button styles */
+}
+
+/* This class is added when isFavorite() is true */
+.favorite-btn.is-favorite {
+  color: #f0e14a; /* Solid yellow star */
+  text-shadow: 0 0 5px rgba(240, 225, 74, 0.7); /* Yellow glow */
+}
+
+.favorite-btn.is-favorite:hover {
+  color: #f9eb8b; /* Lighter yellow on hover */
+}
