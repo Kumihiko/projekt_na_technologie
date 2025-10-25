@@ -18,18 +18,25 @@ export class ApiService {
 
   // --- CHARACTERS ---
   // Accepts a page number and a filters object
-  getCharacters(page: number = 1, filters: { name?: string, status?: string } = {}): Observable<ApiResponse<Character>> {
+getCharacters(page: number = 1, filters: { name?: string, status?: string, species?: string, type?: string, gender?: string } = {}): Observable<ApiResponse<Character>> {
     let params = new HttpParams().set('page', page.toString());
 
-    // Add filters to params if they exist
     if (filters.name) {
       params = params.set('name', filters.name);
     }
     if (filters.status) {
       params = params.set('status', filters.status);
     }
+    if (filters.species) {
+      params = params.set('species', filters.species);
+    }
+    if (filters.type) { // <-- NOWY FILTR
+      params = params.set('type', filters.type);
+    }
+    if (filters.gender) { // <-- NOWY FILTR
+      params = params.set('gender', filters.gender);
+    }
 
-    // Return an Observable, typed to our interface
     return this.http.get<ApiResponse<Character>>(`${this.baseUrl}/character`, { params });
   }
 

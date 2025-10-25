@@ -31,6 +31,8 @@ export class CharacterListComponent implements OnInit, OnDestroy { // Implement 
   public filterName: string = '';
   public filterStatus: 'alive' | 'dead' | 'unknown' | '' = '';
   public filterSpecies: string = '';
+  public filterType: string = ''; // <-- DODAJ TO
+  public filterGender: 'female' | 'male' | 'genderless' | 'unknown' | '' = ''; // <-- DODAJ TO
 
   // Auth & Favorites
   public isLoggedIn: boolean = false;
@@ -73,7 +75,9 @@ export class CharacterListComponent implements OnInit, OnDestroy { // Implement 
     const filters = {
       name: this.filterName,
       status: this.filterStatus,
-      species: this.filterSpecies
+      species: this.filterSpecies,
+      type: this.filterType,
+      gender: this.filterGender
     };
 
     this.api.getCharacters(this.currentPage, filters).subscribe({
@@ -132,6 +136,8 @@ export class CharacterListComponent implements OnInit, OnDestroy { // Implement 
     this.filterName = '';
     this.filterStatus = '';
     this.filterSpecies = '';
+    this.filterType = '';
+    this.filterGender = '';
     this.currentPage = 1;
     this.loadCharacters();
   }
